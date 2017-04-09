@@ -4,7 +4,8 @@
     # refer to this launch file.
 
     # the robot's xacro file
-	<arg name="robot_xacro" default="$(find jaco_on_table)/urdf/jaco_on_table_robot.urdf.xacro"/>
+<!--	<arg name="robot_xacro" default="$(find jaco_on_table)/urdf/jaco_on_table_robot.urdf.xacro"/> -->
+	<arg name="robot_xacro" default="$(find jaco_on_table)/urdf/jaco_on_table_robot_gazebo_ctrl.urdf.xacro"/>
 
     # Specify a name for the robot
 	<arg name="robot_name" default="jaco_on_table"/>
@@ -15,18 +16,21 @@
     <arg name="x" default="0"/>
     <arg name="y" default="0"/>
     <arg name="z" default="0"/>
+
+    <arg name="gui" default="false"/> 
     <arg name="gazebo_world_file" default="worlds/empty.world"/>
 	<arg name="load_joint_state_publisher" default="false"/>
 	<arg name="joint_state_publisher_topic" default="jaco/joint_control"/>
 	<arg name="load_robot_state_publisher" default="false"/>
 	<arg name="joint_states_topic" default="jaco/joint_state"/>
     <arg name="extra_gazebo_args" default=""/>	
+        <arg name="load_gui" default="false" />
 
 	#####################################
 	# Load robot_description on parameter server
 	#####################################
 	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg robot_xacro)' $(arg xacro_arguments)"/>
-        <param name="use_gui" value="false"/>
+
 
     ########################################
     # Load arm joint and gripper joint names
@@ -48,112 +52,8 @@
         <arg name="load_joint_state_publisher" value="$(arg load_joint_state_publisher)"/>
         <arg name="joint_state_publisher_topic" value="$(arg joint_state_publisher_topic)"/>
         <arg name="load_robot_state_publisher" value="$(arg load_robot_state_publisher)"/>
-        <arg name="joint_states_topic" value="$(arg joint_states_topic)"/>
-        <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>	
+        <arg name="joint_states_topic" value="$(arg joint_states_topic)"/> 
+        <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>
+        <param name="use_gui" value="$(arg load_gui)"/>	
 	</include>
-
-	#####################################
-	# Launch robot_state_publisher 
-	#####################################
-
- <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
-</node>
- <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen">
-<rosparam>
-joint_state_controller:
-    type: joint_state_controller/JointStateController
-    publish_rate: 100  
-
- # Position Controllers ---------------------------------------
-jaco_arm_0_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_0_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_1_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_1_joint
-#    pid: {p: 100.0, i: 0.5, d: 5.0}
-jaco_arm_2_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_2_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_3_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_3_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_4_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_4_joint
-#    pid: {p: 10.0, i: 0.5, d: 1.0}
-jaco_arm_5_joint_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_arm_5_joint
-#    pid: {p: 10.0, i: 0.5, d: 1.0}
-jaco_finger_joint_0_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_finger_joint_0
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-jaco_finger_joint_2_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_finger_joint_2
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-jaco_finger_joint_4_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: jaco_finger_joint_4
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-# Velocity Controllers ---------------------------------------
-jaco_arm_0_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_0_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_1_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_1_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_2_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_2_joint
-    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_3_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_3_joint
-#    pid: {p: 100.0, i: 0.5, d: 1.0}
-jaco_arm_4_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_4_joint
-#    pid: {p: 10.0, i: 0.5, d: 1.0}
-jaco_arm_5_joint_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_arm_5_joint
-#    pid: {p: 10.0, i: 0.5, d: 1.0}
-jaco_finger_joint_0_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_finger_joint_0
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-jaco_finger_joint_2_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_finger_joint_2
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-jaco_finger_joint_4_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: jaco_finger_joint_4
-#    pid: {p: 10, i: 0.0001, d: 0.005}
-  </rosparam>
-    <remap from="/joint_states" to="/jaco_on_table/joint_states" />
-</node>
-
-<!--
- <node pkg="controller_manager" type="spawner" name="joint_state_controller" output="screen" args="joint_state_controller "/>
-
-<node pkg="gazebo_ros" type="gazebo_ros" name="gazebo_ros_joint_state_publisher" output="screen">
-<param name ="/use_sim_time" value="false"/>
-   <param name="/use_gui" value="false"/> 
-    <remap from="/joint_states" to="/jaco_on_table/joint_states" />
-</node>
-
- <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
-
- <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" output="screen" args="joint_state_controller joint_publisher timeout 20" />
--->
-
 </launch>
