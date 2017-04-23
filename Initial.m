@@ -35,7 +35,7 @@ jaco = ExampleHelperGazeboSpawnedModel('jaco_on_table',gazebo)
 % 
 % links =
 % 
-%   10×1 cell array
+%   10??1 cell array
 % 
 %     'robot_base'
 %     'jaco_1_shoulder_limb'
@@ -51,7 +51,7 @@ jaco = ExampleHelperGazeboSpawnedModel('jaco_on_table',gazebo)
 % 
 % joints =
 % 
-%   10×1 cell array
+%   10x1 cell array
 % 
 %     'base_to_jaco_on_table'
 %     'jaco_arm_0_joint'
