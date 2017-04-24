@@ -1,4 +1,4 @@
-clear all
+clear
 clc, close all
 format shortg
 
@@ -24,16 +24,16 @@ d6b=sa/s2a*D5+D6;
 
 syms q1 q2 q3 q4 q5 q6;
 
-syms t q1(t) q2(t) q3(t) q4(t) q5(t) q6(t);
+%syms t q1(t) q2(t) q3(t) q4(t) q5(t) q6(t);
 
-q1=q1(t);
-q2=q2(t);
-q3=q3(t);
-q4=q4(t);
-q5=q5(t);
-q6=q6(t);
+% q1=q1(t);
+% q2=q2(t);
+% q3=q3(t);
+% q4=q4(t);
+% q5=q5(t);
+% q6=q6(t);
 
-%q=[q1;q2;q3;q4;q5;q6];
+q=[q1;q2;q3;q4;q5;q6];
 
 % Link 1
 T01=dh2mat(q1,D1,0,0);
@@ -84,24 +84,44 @@ B=[approach_vector_0, approach_vector_1, approach_vector_2,approach_vector_3, ap
 % Full 6DoF Jacobian
 %J=[A;B]
 
-dq=[diff(q1,t);
-    diff(q2,t);
-	diff(q3,t);
-    diff(q4,t);
-    diff(q5,t);
-    diff(q6,t)];
+% dq=[diff(q1,t);
+%     diff(q2,t);
+% 	diff(q3,t);
+%     diff(q4,t);
+%     diff(q5,t);
+%     diff(q6,t)];
 
 q_char=['q1';'q2';'q3';'q4';'q5';'q6'];
-dq_char=['dq1';'dq2';'dq3';'dq4';'dq5';'dq6'];
+%dq_char=['dq1';'dq2';'dq3';'dq4';'dq5';'dq6'];
 
-dOe=diff(T06(1:3,4),t);
+phie=[atan2(T06(2,1),T06(1,1));atan2(-T06(3,1),sqrt(T06(3,2)^2+T06(3,3)^2));atan2(T06(3,2),T06(3,3))];
+pe=T06(1:3,4);
+
+xe=[pe;phie];
+
+dphie=sym(zeros(3,6));
+dpe=sym(zeros(3,6));
+
 for i=1:6
-    dOe=subs(dOe,dq(i),dq_char(i,:));
+    dpe(:,i)=diff(pe,q(i));
+    dphie(:,i)=diff(phie,q(i));
 end
-dOe=subs(dOe,q1,q_char(1,:));
-dOe=subs(dOe,q2,q_char(2,:));
-dOe=subs(dOe,q3,q_char(3,:));
-dOe=subs(dOe,q4,q_char(4,:));
-dOe=subs(dOe,q5,q_char(5,:));
-dOe=subs(dOe,q6,q_char(6,:));
-dOe=simplify(dOe)
+
+%dOe=diff(T06(1:3,4),t);
+for i=1:6
+    %dOe=subs(dOe,dq(i),dq_char(i,:));
+    dpe=subs(dpe,q(i),q_char(i,:));
+    dphie=subs(dphie,q(i),q_char(i,:));
+end
+% dOe=subs(dOe,q1,q_char(1,:));
+% dOe=subs(dOe,q2,q_char(2,:));
+% dOe=subs(dOe,q3,q_char(3,:));
+% dOe=subs(dOe,q4,q_char(4,:));
+% dOe=subs(dOe,q5,q_char(5,:));
+% dOe=subs(dOe,q6,q_char(6,:));
+% dOe=simplify(dOe)
+
+dpe=simplify(dpe)
+%dphie=simplify(dphie)
+
+JA=[dpe;dphie];

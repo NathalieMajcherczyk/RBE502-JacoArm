@@ -14,22 +14,22 @@
 Kp=100*eye(6);
 Kd=50*eye(6);
 
-
-%% Initialize ROS from MATLAB, using your username
-rosinit('miems', 11311)      % please put your username here, 
-                                % which you have on your computer
-
-%% Run the Gazebo Handler from MATLAB
-gazebo = ExampleHelperGazeboCommunicator();
-
-%% Import the models (which were already spawned in Gazebo) into MATLAB
-models = getSpawnedModels(gazebo)
-
-%% Separate the JACO related model
-jaco = ExampleHelperGazeboSpawnedModel('jaco_on_table',gazebo)
-
-%% Seprate the components of JACO into links and joints
-[links, joints] = getComponents(jaco)
+% 
+% %% Initialize ROS from MATLAB, using your username
+% rosinit('miems', 11311)      % please put your username here, 
+%                                 % which you have on your computer
+% 
+% %% Run the Gazebo Handler from MATLAB
+% gazebo = ExampleHelperGazeboCommunicator();
+% 
+% %% Import the models (which were already spawned in Gazebo) into MATLAB
+% models = getSpawnedModels(gazebo)
+% 
+% %% Separate the JACO related model
+% jaco = ExampleHelperGazeboSpawnedModel('jaco_on_table',gazebo)
+% 
+% %% Seprate the components of JACO into links and joints
+% [links, joints] = getComponents(jaco)
 
 % The result should look like 
 % 
