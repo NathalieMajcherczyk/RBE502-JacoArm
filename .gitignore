@@ -1,3 +1,5 @@
+*.slx.autosave
+Temp/
 /slprj
 *~m
 *slx.r2016a

@@ -1,4 +1,4 @@
-clear all
+clear
 clc, close all
 format shortg
 
