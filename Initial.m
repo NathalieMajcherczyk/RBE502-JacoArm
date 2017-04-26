@@ -11,8 +11,8 @@
  clc, clear, close all
  rosshutdown;
  %% Initialize Kp and Kd
-Kp=100*eye(6);
-Kd=50*eye(6);
+Kp=1000*eye(6);
+Kd=500*eye(6);
 
 % 
 % %% Initialize ROS from MATLAB, using your username
