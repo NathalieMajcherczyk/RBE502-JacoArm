@@ -1,5 +1,5 @@
 close all
-load('results4.mat')
+load('results5.mat')
 
 q1=q.Data(:,1);
 q2=q.Data(:,2);
@@ -17,9 +17,9 @@ for i=1:n
 [X(i,:),Y(i,:),Z(i,:)]=plotarm(q1(i*step),q2(i*step),q3(i*step),q4(i*step),q5(i*step),q6(i*step));
 end
 
-save('joints4.mat','X','Y','Z');
+save('joints5.mat','X','Y','Z');
 
-%load('joints3.mat')
+%load('joints5.mat')
 step=1;
 figure
 for i=1:length(X)
@@ -38,3 +38,41 @@ hold on
 pause(0.05)
 hold off
 end
+
+figure
+subplot(6,1,1)
+plot(xd.Time,xd.Data(:,1),'b');
+hold on
+plot(xe.Time,xe.Data(:,1),'r');
+xlabel('x (m)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 
+subplot(6,1,2)
+plot(xd.Time,xd.Data(:,2),'b');
+hold on
+plot(xe.Time,xe.Data(:,2),'r');
+xlabel('y (m)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 
+subplot(6,1,3)
+plot(xd.Time,xd.Data(:,3),'b');
+hold on
+plot(xe.Time,xe.Data(:,3),'r');
+xlabel('z (m)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 
+subplot(6,1,4)
+plot(xd.Time,xd.Data(:,4),'b');
+hold on
+plot(xe.Time,xe.Data(:,4),'r');
+xlabel('roll (rad)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 
+subplot(6,1,5)
+plot(xd.Time,xd.Data(:,5),'b');
+hold on
+plot(xe.Time,xe.Data(:,5),'r');
+xlabel('pitch (rad)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 
+subplot(6,1,6)
+plot(xd.Time,xd.Data(:,6),'b');
+hold on
+plot(xe.Time,xe.Data(:,6),'r');
+xlabel('yaw (rad)','FontSize','14') 
+ylabel('time (s)','FontSize','14') 

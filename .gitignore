@@ -1,6 +1,6 @@
 *.slx.autosave
 Temp/
 /slprj
-*~m
+*m~
 *slx.r2016a
 Jaco_test.m

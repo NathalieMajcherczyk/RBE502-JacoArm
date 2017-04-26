@@ -1,14 +1,14 @@
 close all
-load('results2.mat')
-% 
+load('results4.mat')
+
 % q1=q.Data(:,1);
 % q2=q.Data(:,2);
 % q3=q.Data(:,3);
 % q4=q.Data(:,4);
 % q5=q.Data(:,5);
 % q6=q.Data(:,6);
-% step=100;
-% tf=length(q.Data(:,1))-84;
+% step=1;%00;
+% tf=length(q.Data(:,1));%-84;
 % n=tf/step;
 % X=zeros(n,7);
 % Y=zeros(n,7);
@@ -17,11 +17,12 @@ load('results2.mat')
 % [X(i,:),Y(i,:),Z(i,:)]=plotarm(q1(i*step),q2(i*step),q3(i*step),q4(i*step),q5(i*step),q6(i*step));
 % end
 % 
-% save('joints2.mat','X','Y','Z');
+% save('joints4.mat','X','Y','Z');
 
-load('joints2.mat')
+load('joints4.mat')
+step=1;
 figure
-for i=1:n
+for i=1:length(X)
 plot3(xd.Data(:,1),xd.Data(:,2),xd.Data(:,3),'g-')
 hold on
 plot3(xe.Data(:,1),xe.Data(:,2),xe.Data(:,3),'k-')
@@ -37,3 +38,29 @@ hold on
 pause(0.05)
 hold off
 end
+
+figure
+subplot(6,1,1)
+plot(xd.Time,xd.Data(:,1),'b');
+hold on
+plot(xe.Time,xe.Data(:,1),'r');
+subplot(6,1,2)
+plot(xd.Time,xd.Data(:,2),'b');
+hold on
+plot(xe.Time,xe.Data(:,2),'r');
+subplot(6,1,3)
+plot(xd.Time,xd.Data(:,3),'b');
+hold on
+plot(xe.Time,xe.Data(:,3),'r');
+subplot(6,1,2)
+plot(xd.Time,xd.Data(:,1),'b');
+hold on
+plot(xe.Time,xe.Data(:,1),'b');
+subplot(6,2,2)
+plot(xd.Time,xd.Data(:,1),'b');
+hold on
+plot(xe.Time,xe.Data(:,1),'b');
+subplot(6,3,2)
+plot(xd.Time,xd.Data(:,1),'b');
+hold on
+plot(xe.Time,xe.Data(:,1),'b');
