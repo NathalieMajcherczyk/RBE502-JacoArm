@@ -79,10 +79,12 @@ B=[approach_vector_0, approach_vector_1, approach_vector_2,approach_vector_3, ap
 
 % Computation of A (3 DoF form of the Jacobian)
 
-%A=[diff(T06(1:3,4),q1),diff(T06(1:3,4),q2),diff(T06(1:3,4),q3),diff(T06(1:3,4),q4),diff(T06(1:3,4),q5),diff(T06(1:3,4),q6)]
+A=[diff(T06(1:3,4),q1),diff(T06(1:3,4),q2),diff(T06(1:3,4),q3),diff(T06(1:3,4),q4),diff(T06(1:3,4),q5),diff(T06(1:3,4),q6)]
 
 % Full 6DoF Jacobian
-%J=[A;B]
+J=[A;B]
+matlabFunction(B,'File','B');
+matlabFunction(J,'File','J');
 
 % dq=[diff(q1,t);
 %     diff(q2,t);
@@ -125,3 +127,4 @@ dpe=simplify(dpe)
 %dphie=simplify(dphie)
 
 JA=[dpe;dphie];
+matlabFunction(JA,'File','JA');

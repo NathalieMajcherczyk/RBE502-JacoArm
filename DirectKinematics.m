@@ -23,26 +23,28 @@ d5b=sa/s2a*D4+sa/s2a*D5;
 d6b=sa/s2a*D5+D6;
 
 % Link 1
-T01=dh2mat(q1,D1,0,0);
+T01=dh2mat(q1,D1,0,sym(pi/2));
 
 % Link 2
-T12=dh2mat(q2,0,0,-pi/2);
+T12=dh2mat(q2,0,D2,sym(pi));
 
 % Link 3
-T23=dh2mat(q3,e2,D2,0); 
+T23=dh2mat(q3,-e2,0,sym(pi/2)); 
 
 % Link 4
-T34=dh2mat(q4,d4b,0,-pi/2);
+T34=dh2mat(q4,-d4b,0,2*aa);
 
 % Link 5
-T45=dh2mat(q5,d5b,0,2*aa);
+T45=dh2mat(q5,-d5b,0,2*aa);
 
 % Link 6
-T56=dh2mat(q6,d6b,0,2*aa);
+T56=dh2mat(q6,-d6b,0,sym(pi));
 
 T06=T01*T12*T23*T34*T45*T56;
+T06=simplify(T06);
+
 Re=T06(1:3,1:3);
 Oe=T06(1:3,4);
-
+%matlabFunction(Re,Oe,'File','ForwardKinematics');
 end
 
