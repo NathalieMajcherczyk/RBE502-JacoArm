@@ -46,6 +46,7 @@ T56=dh2mat(q6,-d6b,0,sym(pi));
 
 T06=T01*T12*T23*T34*T45*T56;
 T06=simplify(T06);
+T06=eval(T06);
 
 Re=T06(1:3,1:3);
 Oe=T06(1:3,4);
@@ -73,7 +74,7 @@ B=[approach_vector_0, approach_vector_1, approach_vector_2,approach_vector_3, ap
 
 % Computation of A (3 DoF form of the Jacobian)
 
-A=[diff(T06(1:3,4),q1),diff(T06(1:3,4),q2),diff(T06(1:3,4),q3),diff(T06(1:3,4),q4),diff(T06(1:3,4),q5),diff(T06(1:3,4),q6)]
+A=[diff(T06(1:3,4),q1),diff(T06(1:3,4),q2),diff(T06(1:3,4),q3),diff(T06(1:3,4),q4),diff(T06(1:3,4),q5),diff(T06(1:3,4),q6)];
 
 % Full 6DoF Jacobian
 J=[A;B]
